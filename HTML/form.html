@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+  <title>Survey Form</title>
+  <style>
+    * {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      gap: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-group>label:first-child {
+      width: 25%;
+      text-align: right;
+    }
+
+    select,
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    .form-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .gender-checkbox {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .submit-reset {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      text-align: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      margin: 100px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Survey Form</h2>
+    <form id="survey-form">
+      <div class="form-group">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" required>
+      </div>
+      <div class="form-group">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" required>
+      </div>
+      <div class="form-group">
+        <label for="date-of-birth">Date of Birth</label>
+        <input type="date" id="date-of-birth" required>
+      </div>
+      <div class="form-group">
+        <label for="country">Country</label>
+        <select id="country" required>
+          <option value="Canada">Canada</option>
+          <option value="India" selected>India</option>
+          <option value="UK">United Kingdom</option>
+          <option value="USA">United States</option>
+          <!-- Add more countries as needed -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="form-field">
+          <input type="checkbox" class="gender-checkbox" id="male" value="Male">
+          <label for="male">Male</label>
+          <input type="checkbox" class="gender-checkbox" id="female" value="Female">
+          <label for="female">Female</label>
+          <input type="checkbox" class="gender-checkbox" id="other" value="Other">
+          <label for="other">Other</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="profession">Profession</label>
+        <input type="text" id="profession" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="mobile-number">Mobile Number</label>
+        <input type="tel" id="mobile-number" required>
+      </div>
+      <div class="submit-reset">
+        <button type="submit" id="submit-button">Submit</button>
+        <button type="reset" id="reset-button">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h3>Submitted Values</h3>
+      <div id="modal-values"></div>
+      <button id="close-modal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("survey-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const firstName = document.getElementById("first-name").value;
+      const lastName = document.getElementById("last-name").value;
+      const dateOfBirth = document.getElementById("date-of-birth").value;
+      const country = document.getElementById("country").value;
+      const gender = Array.from(document.querySelectorAll(".gender-checkbox:checked")).map(checkbox => checkbox.value);
+      const profession = document.getElementById("profession").value;
+      const email = document.getElementById("email").value;
+      const mobileNumber = document.getElementById("mobile-number").value;
+
+      const modalValues =
+        `First Name: ${firstName}<br>
+          Last Name: ${lastName}<br>
+          Date of Birth: ${dateOfBirth}<br>
+          Country: ${country}<br>
+          Gender: ${gender.join(", ")}<br>
+          Profession: ${profession}<br>
+          Email: ${email}<br>
+          Mobile Number: ${mobileNumber}`;
+
+      document.getElementById("modal-values").innerHTML = modalValues;
+      document.getElementById("modal").style.display = "block";
+      console.log("fired"); 
+    });
+
+    document.getElementById("close-modal").addEventListener("click", function () {
+      document.getElementById("modal").style.display = "none";
+    });
+  </script>
+</body>
